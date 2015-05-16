@@ -78,11 +78,23 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.paperclip_defaults = {
-  :storage => :s3,
-  :s3_credentials => {
-    :bucket => ENV['S3_BUCKET_NAME'],
-    :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-    :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+    :storage => :s3,
+    :s3_credentials => {
+      :bucket => ENV['S3_BUCKET_NAME'],
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+    }
   }
+
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.default_url_options = {host: "https://barter-hub.herokuapp.com"}
+ActionMailer::Base.smtp_settings = {
+  :port           => 587,
+  :address        => "smtp.mailgun.org",
+  :domain         => 'mailgun.org',
+  :user_name      => 'postmaster@sandbox5b8568ba6c1c4f47afc871962fc60f08.mailgun.org',
+  :password       => 'e18861b0857c5390773296985b88851b',
+  :authentication => :plain,
+  :openssl_verify_mode  => 'none'
 }
 end
